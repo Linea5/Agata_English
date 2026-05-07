@@ -12,8 +12,6 @@
   --purple: #a855f7;
   --purple-dark: #7c3aed;
   --purple-light: #f5f3ff;
-  --teal: #2dd4bf;
-  --yellow: #fbbf24;
   --green: #34d399;
   --green-dark: #059669;
   --red: #f87171;
@@ -26,7 +24,6 @@
   --radius: 18px;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
-
 body {
   font-family: 'Nunito', sans-serif;
   background: var(--bg);
@@ -35,194 +32,90 @@ body {
   align-items: center;
   justify-content: center;
   padding: 16px;
+  overflow-y: auto;
 }
-
-/* background blobs */
-body::before, body::after {
-  content:''; position:fixed; border-radius:50%; pointer-events:none; z-index:0;
-}
+body::before, body::after { content:''; position:fixed; border-radius:50%; pointer-events:none; z-index:0; }
 body::before { width:420px; height:420px; background:radial-gradient(circle, rgba(244,114,182,0.15), transparent 70%); top:-80px; right:-80px; }
 body::after  { width:360px; height:360px; background:radial-gradient(circle, rgba(168,85,247,0.12), transparent 70%); bottom:-60px; left:-60px; }
-
-.app {
-  position: relative; z-index:1;
-  width: 100%; max-width: 560px;
-}
-
-/* SCREENS */
-.screen { display:none; animation: fadeIn 0.35s ease; }
+.app { position:relative; z-index:1; width:100%; max-width:560px; }
+.screen { display:none; animation:fadeIn 0.35s ease; }
 .screen.active { display:block; }
-@keyframes fadeIn { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
-
-/* ── START SCREEN ── */
-.start-card {
-  background: var(--card);
-  border-radius: 28px;
-  padding: 44px 36px;
-  box-shadow: var(--shadow);
-  text-align: center;
-}
-.start-emoji { font-size: 64px; display:block; margin-bottom: 16px; animation: bounce 2s infinite; }
+@keyframes fadeIn { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+.start-card { background:var(--card); border-radius:28px; padding:44px 36px; box-shadow:var(--shadow); text-align:center; }
+.start-emoji { font-size:64px; display:block; margin-bottom:16px; animation:bounce 2s infinite; }
 @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
 .start-card h1 { font-family:'Fredoka One',cursive; font-size:2rem; color:var(--purple-dark); margin-bottom:8px; }
 .start-card p { color:var(--text2); font-size:1rem; margin-bottom:8px; line-height:1.5; }
 .topics { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:20px 0 28px; }
-.topic-badge {
-  padding: 6px 14px; border-radius: 999px; font-size:.82rem; font-weight:700;
-  background: var(--purple-light); color: var(--purple-dark);
-}
+.topic-badge { padding:6px 14px; border-radius:999px; font-size:.82rem; font-weight:700; background:var(--purple-light); color:var(--purple-dark); }
 .topic-badge.green { background:#ecfdf5; color:var(--green-dark); }
 .topic-badge.pink  { background:#fdf2f8; color:var(--pink-dark); }
-
-/* ── QUIZ SCREEN ── */
-.quiz-header {
-  display:flex; align-items:center; gap:12px; margin-bottom:20px;
-}
-.tag {
-  font-size:.72rem; font-weight:800; padding:4px 12px; border-radius:999px;
-  text-transform:uppercase; letter-spacing:.06em;
-}
-.tag-adverb   { background:#ede9fe; color:#6d28d9; }
-.tag-pc       { background:#fdf2f8; color:var(--pink-dark); }
-.tag-goingto  { background:#ecfdf5; color:var(--green-dark); }
-
+.quiz-header { display:flex; align-items:center; gap:12px; margin-bottom:20px; }
+.tag { font-size:.72rem; font-weight:800; padding:4px 12px; border-radius:999px; text-transform:uppercase; letter-spacing:.06em; white-space:nowrap; }
+.tag-adverb  { background:#ede9fe; color:#6d28d9; }
+.tag-pc      { background:#fdf2f8; color:var(--pink-dark); }
+.tag-goingto { background:#ecfdf5; color:var(--green-dark); }
 .progress-wrap { flex:1; }
-.progress-bar {
-  height:8px; background:#e9d5ff; border-radius:999px; overflow:hidden;
-}
-.progress-fill {
-  height:100%; background: linear-gradient(90deg, var(--purple), var(--pink));
-  border-radius:999px; transition: width .4s ease;
-}
+.progress-bar { height:8px; background:#e9d5ff; border-radius:999px; overflow:hidden; }
+.progress-fill { height:100%; background:linear-gradient(90deg,var(--purple),var(--pink)); border-radius:999px; transition:width .4s ease; }
 .progress-text { font-size:.75rem; color:var(--text2); text-align:right; margin-top:4px; font-weight:600; }
-
-.q-card {
-  background: var(--card);
-  border-radius: var(--radius);
-  padding: 28px 28px 24px;
-  box-shadow: var(--shadow);
-  margin-bottom: 16px;
-}
+.q-card { background:var(--card); border-radius:var(--radius); padding:28px 28px 24px; box-shadow:var(--shadow); margin-bottom:16px; }
 .q-type { font-size:.75rem; color:var(--text2); font-weight:700; margin-bottom:10px; text-transform:uppercase; letter-spacing:.05em; }
-.q-text { font-size:1.1rem; font-weight:700; color:var(--text); line-height:1.5; margin-bottom:20px; }
+.q-text { font-size:1.05rem; font-weight:700; color:var(--text); line-height:1.6; margin-bottom:20px; }
 .q-text em { color:var(--purple-dark); font-style:italic; }
-
 .options { display:flex; flex-direction:column; gap:10px; }
-.opt-btn {
-  background: var(--purple-light);
-  border: 2px solid transparent;
-  border-radius: 14px;
-  padding: 14px 18px;
-  font-family: 'Nunito', sans-serif;
-  font-size: .95rem;
-  font-weight: 700;
-  color: var(--purple-dark);
-  cursor: pointer;
-  text-align: left;
-  transition: all .18s;
-}
+.opt-btn { background:var(--purple-light); border:2px solid transparent; border-radius:14px; padding:14px 18px; font-family:'Nunito',sans-serif; font-size:.95rem; font-weight:700; color:var(--purple-dark); cursor:pointer; text-align:left; transition:all .18s; }
 .opt-btn:hover { background:#ede9fe; border-color:var(--purple); transform:translateX(4px); }
 .opt-btn.correct { background:#d1fae5; border-color:var(--green-dark); color:var(--green-dark); }
 .opt-btn.wrong   { background:#fee2e2; border-color:var(--red-dark); color:var(--red-dark); }
 .opt-btn.reveal  { background:#d1fae5; border-color:var(--green-dark); color:var(--green-dark); opacity:.7; }
 .opt-btn:disabled { cursor:default; transform:none; }
-
-/* feedback */
-.feedback {
-  margin-top:16px; padding:14px 18px; border-radius:14px;
-  font-weight:700; font-size:.95rem; display:none;
-}
+.fill-wrap { display:flex; flex-direction:column; gap:12px; }
+.fill-row { display:flex; flex-direction:column; gap:6px; }
+.fill-label { font-size:.8rem; font-weight:700; color:var(--text2); text-transform:uppercase; letter-spacing:.04em; }
+.fill-input { width:100%; padding:14px 16px; border:2px solid #e9d5ff; border-radius:14px; font-family:'Nunito',sans-serif; font-size:1rem; font-weight:700; color:var(--text); background:#fafafa; outline:none; transition:border-color .2s, background .2s; }
+.fill-input:focus { border-color:var(--purple); background:#fff; }
+.fill-input.correct { border-color:var(--green-dark); background:#d1fae5; color:var(--green-dark); }
+.fill-input.wrong   { border-color:var(--red-dark); background:#fee2e2; color:var(--red-dark); }
+.fill-input:disabled { cursor:default; }
+.check-btn { width:100%; padding:14px; border-radius:14px; border:none; background:linear-gradient(135deg,var(--purple),var(--pink)); color:#fff; font-family:'Nunito',sans-serif; font-size:1rem; font-weight:800; cursor:pointer; transition:all .15s; box-shadow:0 4px 16px rgba(168,85,247,.3); margin-top:4px; }
+.check-btn:hover { transform:translateY(-2px); box-shadow:0 6px 20px rgba(168,85,247,.4); }
+.check-btn:disabled { opacity:.5; cursor:default; transform:none; }
+.feedback { margin-top:16px; padding:14px 18px; border-radius:14px; font-weight:700; font-size:.92rem; display:none; line-height:1.5; }
 .feedback.show { display:block; animation:fadeIn .2s; }
 .feedback.ok  { background:#d1fae5; color:var(--green-dark); }
 .feedback.bad { background:#fee2e2; color:var(--red-dark); }
-
-.next-btn {
-  display:none; width:100%; margin-top:14px;
-  background: linear-gradient(135deg, var(--purple), var(--pink));
-  color:#fff; border:none; border-radius:14px;
-  padding:15px; font-family:'Nunito',sans-serif;
-  font-size:1rem; font-weight:800; cursor:pointer;
-  transition: transform .15s, box-shadow .15s;
-  box-shadow: 0 4px 16px rgba(168,85,247,.3);
-}
+.next-btn { display:none; width:100%; margin-top:14px; background:linear-gradient(135deg,var(--purple),var(--pink)); color:#fff; border:none; border-radius:14px; padding:15px; font-family:'Nunito',sans-serif; font-size:1rem; font-weight:800; cursor:pointer; transition:transform .15s, box-shadow .15s; box-shadow:0 4px 16px rgba(168,85,247,.3); }
 .next-btn:hover { transform:translateY(-2px); box-shadow:0 6px 20px rgba(168,85,247,.4); }
 .next-btn.show { display:block; animation:fadeIn .2s; }
-
-/* streak */
-.streak-badge {
-  position:fixed; top:20px; left:50%; transform:translateX(-50%) translateY(-80px);
-  background: linear-gradient(135deg,#fbbf24,#f59e0b);
-  color:#fff; padding:10px 24px; border-radius:999px;
-  font-family:'Fredoka One',cursive; font-size:1.1rem;
-  box-shadow:0 4px 20px rgba(251,191,36,.5);
-  transition:transform .4s cubic-bezier(.34,1.56,.64,1);
-  z-index:100; pointer-events:none;
-}
+.streak-badge { position:fixed; top:20px; left:50%; transform:translateX(-50%) translateY(-80px); background:linear-gradient(135deg,#fbbf24,#f59e0b); color:#fff; padding:10px 24px; border-radius:999px; font-family:'Fredoka One',cursive; font-size:1.1rem; box-shadow:0 4px 20px rgba(251,191,36,.5); transition:transform .4s cubic-bezier(.34,1.56,.64,1); z-index:100; pointer-events:none; }
 .streak-badge.show { transform:translateX(-50%) translateY(0); }
-
-/* ── RESULT SCREEN ── */
-.result-card {
-  background:var(--card); border-radius:28px; padding:40px 32px;
-  box-shadow:var(--shadow); text-align:center;
-}
+.result-card { background:var(--card); border-radius:28px; padding:40px 32px; box-shadow:var(--shadow); text-align:center; }
 .result-emoji { font-size:72px; display:block; margin-bottom:8px; }
-.result-grade {
-  font-family:'Fredoka One',cursive; font-size:3.5rem;
-  background:linear-gradient(135deg,var(--purple),var(--pink));
-  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
-  background-clip:text;
-}
+.result-grade { font-family:'Fredoka One',cursive; font-size:3.5rem; background:linear-gradient(135deg,var(--purple),var(--pink)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
 .result-pct { font-size:1.2rem; color:var(--text2); font-weight:700; margin-bottom:20px; }
 .result-stats { display:flex; gap:12px; justify-content:center; margin-bottom:24px; }
-.stat {
-  padding:10px 20px; border-radius:12px; font-weight:800; font-size:.9rem;
-}
+.stat { padding:10px 20px; border-radius:12px; font-weight:800; font-size:.9rem; }
 .stat.good { background:#d1fae5; color:var(--green-dark); }
 .stat.bad  { background:#fee2e2; color:var(--red-dark); }
 .result-msg { color:var(--text2); font-size:1rem; margin-bottom:28px; line-height:1.5; }
-
-.retry-btn, .restart-btn {
-  padding:14px 28px; border-radius:14px; border:none;
-  font-family:'Nunito',sans-serif; font-size:1rem; font-weight:800;
-  cursor:pointer; transition:all .15s; margin:6px;
-}
-.retry-btn {
-  background:linear-gradient(135deg,var(--red),#f59e0b);
-  color:#fff; box-shadow:0 4px 16px rgba(239,68,68,.3);
-}
-.restart-btn {
-  background:var(--purple-light); color:var(--purple-dark);
-}
+.retry-btn, .restart-btn { padding:14px 28px; border-radius:14px; border:none; font-family:'Nunito',sans-serif; font-size:1rem; font-weight:800; cursor:pointer; transition:all .15s; margin:6px; }
+.retry-btn { background:linear-gradient(135deg,var(--red),#f59e0b); color:#fff; box-shadow:0 4px 16px rgba(239,68,68,.3); }
+.restart-btn { background:var(--purple-light); color:var(--purple-dark); }
 .retry-btn:hover, .restart-btn:hover { transform:translateY(-2px); }
-
-/* perfect */
-.perfect-card {
-  background: linear-gradient(135deg, #7c3aed, #db2777);
-  border-radius:28px; padding:44px 32px;
-  box-shadow:0 8px 40px rgba(124,58,237,.35); text-align:center; color:#fff;
-}
+.perfect-card { background:linear-gradient(135deg,#7c3aed,#db2777); border-radius:28px; padding:44px 32px; box-shadow:0 8px 40px rgba(124,58,237,.35); text-align:center; color:#fff; }
 .perfect-card h2 { font-family:'Fredoka One',cursive; font-size:2.2rem; margin-bottom:12px; }
 .perfect-card p  { font-size:1.05rem; opacity:.9; margin-bottom:28px; line-height:1.5; }
 .perfect-stars { font-size:2rem; margin-bottom:16px; animation:pulse 1.5s infinite; }
 @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.1)} }
-
-/* confetti */
-.confetti-piece {
-  position:fixed; width:10px; height:10px; top:-20px;
-  animation:fall linear forwards; pointer-events:none; z-index:200; border-radius:2px;
-}
-@keyframes fall {
-  to { transform:translateY(110vh) rotate(720deg); opacity:0; }
-}
+.confetti-piece { position:fixed; width:10px; height:10px; top:-20px; animation:fall linear forwards; pointer-events:none; z-index:200; border-radius:2px; }
+@keyframes fall { to{transform:translateY(110vh) rotate(720deg);opacity:0} }
 </style>
 </head>
 <body>
-
 <div class="streak-badge" id="streakBadge">🔥 <span id="streakCount">3</span> in a row!</div>
-
 <div class="app">
 
-  <!-- START -->
   <div class="screen active" id="scStart">
     <div class="start-card">
       <span class="start-emoji">📚</span>
@@ -233,30 +126,28 @@ body::after  { width:360px; height:360px; background:radial-gradient(circle, rgb
         <span class="topic-badge pink">Present Continuous</span>
         <span class="topic-badge green">Going To</span>
       </div>
-      <p style="color:var(--text2);font-size:.9rem;">35 questions · random order · retry until perfect ✨</p>
+      <p style="color:var(--text2);font-size:.9rem;">Píš odpovede sama · retry až do perfektného výsledku ✨</p>
       <button class="next-btn show" style="margin-top:24px" onclick="startQuiz(false)">Let's go! 🚀</button>
     </div>
   </div>
 
-  <!-- QUIZ -->
   <div class="screen" id="scQuiz">
     <div class="quiz-header">
-      <span class="tag" id="qTag">adverb</span>
+      <span class="tag" id="qTag"></span>
       <div class="progress-wrap">
         <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
-        <div class="progress-text" id="progressText">0 / 35</div>
+        <div class="progress-text" id="progressText">0 / 0</div>
       </div>
     </div>
     <div class="q-card">
       <div class="q-type" id="qType"></div>
       <div class="q-text" id="qText"></div>
-      <div class="options" id="options"></div>
+      <div id="qInput"></div>
       <div class="feedback" id="feedback"></div>
     </div>
     <button class="next-btn" id="nextBtn" onclick="nextQuestion()">Next →</button>
   </div>
 
-  <!-- RESULT -->
   <div class="screen" id="scResult">
     <div class="result-card">
       <span class="result-emoji" id="rEmoji">😊</span>
@@ -272,7 +163,6 @@ body::after  { width:360px; height:360px; background:radial-gradient(circle, rgb
     </div>
   </div>
 
-  <!-- PERFECT -->
   <div class="screen" id="scPerfect">
     <div class="perfect-card">
       <div class="perfect-stars">⭐⭐⭐</div>
@@ -283,399 +173,215 @@ body::after  { width:360px; height:360px; background:radial-gradient(circle, rgb
   </div>
 
 </div>
-
 <script>
-// ═══════════════════════════════════════════════
-// QUESTION BANK
-// ═══════════════════════════════════════════════
 const ALL_QUESTIONS = [
+  // ADVERBS — identify type (mc)
+  {topic:'adverb',type:'What type of adverb?',mode:'mc',text:'She ran <em>quickly</em> to catch the bus.',opts:['manner','time','place','frequency'],ans:'manner',hint:'"Quickly" tells us HOW she ran → adverb of manner.'},
+  {topic:'adverb',type:'What type of adverb?',mode:'mc',text:'We are going on holiday <em>tomorrow</em>.',opts:['manner','time','place','degree'],ans:'time',hint:'"Tomorrow" tells us WHEN → adverb of time.'},
+  {topic:'adverb',type:'What type of adverb?',mode:'mc',text:'The cat is sleeping <em>inside</em>.',opts:['manner','time','place','frequency'],ans:'place',hint:'"Inside" tells us WHERE → adverb of place.'},
+  {topic:'adverb',type:'What type of adverb?',mode:'mc',text:'She is <em>extremely</em> good at maths.',opts:['manner','degree','frequency','time'],ans:'degree',hint:'"Extremely" tells us HOW MUCH → adverb of degree.'},
+  {topic:'adverb',type:'What type of adverb?',mode:'mc',text:'He <em>never</em> eats vegetables.',opts:['manner','time','place','frequency'],ans:'frequency',hint:'"Never" tells us HOW OFTEN → adverb of frequency.'},
+  {topic:'adverb',type:'What type of adverb?',mode:'mc',text:'The children played <em>outside</em> all day.',opts:['manner','time','place','degree'],ans:'place',hint:'"Outside" tells us WHERE → adverb of place.'},
+  {topic:'adverb',type:'What type of adverb?',mode:'mc',text:'He spoke <em>softly</em> so as not to wake the baby.',opts:['manner','frequency','degree','time'],ans:'manner',hint:'"Softly" tells us HOW he spoke → adverb of manner.'},
 
-  // ── ADVERBS: Identify type ──
-  { topic:'adverb', type:'What type of adverb?',
-    text:'She ran <em>quickly</em> to catch the bus.',
-    opts:['manner','time','place','frequency'], ans:'manner',
-    hint:'"Quickly" tells us HOW she ran → adverb of manner.' },
+  // ADVERBS — make the adverb (fill)
+  {topic:'adverb',type:'Write the adverb form',mode:'fill',text:'What is the adverb form of <em>happy</em>?',ans:'happily',hint:'y → i + ly: happy → happily.'},
+  {topic:'adverb',type:'Write the adverb form',mode:'fill',text:'What is the adverb form of <em>quick</em>?',ans:'quickly',hint:'quick + ly = quickly.'},
+  {topic:'adverb',type:'Write the adverb form',mode:'fill',text:'What is the adverb form of <em>angry</em>?',ans:'angrily',hint:'y → i + ly: angry → angrily.'},
+  {topic:'adverb',type:'Write the adverb form',mode:'fill',text:'What is the adverb form of <em>good</em>?',ans:'well',hint:'"Good" is irregular → the adverb is "well".'},
+  {topic:'adverb',type:'Write the adverb form',mode:'fill',text:'What is the adverb form of <em>fast</em>?',ans:'fast',hint:'"Fast" is irregular → the adverb is also "fast" (no -ly!).'},
+  {topic:'adverb',type:'Write the adverb form',mode:'fill',text:'What is the adverb form of <em>loud</em>?',ans:'loudly',hint:'loud + ly = loudly.'},
+  {topic:'adverb',type:'Write the adverb form',mode:'fill',text:'What is the adverb form of <em>hungry</em>?',ans:'hungrily',hint:'y → i + ly: hungry → hungrily.'},
+  {topic:'adverb',type:'Write the adverb form',mode:'fill',text:'What is the adverb form of <em>slow</em>?',ans:'slowly',hint:'slow + ly = slowly.'},
+  {topic:'adverb',type:'Write the adverb form',mode:'fill',text:'What is the adverb form of <em>peaceful</em>?',ans:'peacefully',hint:'peaceful + ly = peacefully.'},
 
-  { topic:'adverb', type:'What type of adverb?',
-    text:'We are going on holiday <em>tomorrow</em>.',
-    opts:['manner','time','place','degree'], ans:'time',
-    hint:'"Tomorrow" tells us WHEN → adverb of time.' },
+  // ADVERBS — adj vs adverb (fill)
+  {topic:'adverb',type:'Adjective or adverb?',mode:'fill',text:'The <em>small</em> kid chewed quickly on the crunchy chips.\nIs "small" an adjective or an adverb?',ans:'adjective',accept:['adjective'],hint:'"Small" describes the noun "kid" → adjective.'},
+  {topic:'adverb',type:'Adjective or adverb?',mode:'fill',text:'The small kid chewed <em>quickly</em> on the crunchy chips.\nIs "quickly" an adjective or an adverb?',ans:'adverb',accept:['adverb'],hint:'"Quickly" describes HOW he chewed → adverb.'},
+  {topic:'adverb',type:'Fill in the correct word',mode:'fill',text:'She danced _____ at the school show.\n(Use the adverb form of "beautiful")',ans:'beautifully',hint:'Describe HOW she danced → adverb → beautifully.'},
+  {topic:'adverb',type:'Adjective or adverb? Fill in.',mode:'fill',text:'He is a _____ singer.\n(good or well?)',ans:'good',accept:['good'],hint:'"Singer" is a noun → describe it with an ADJECTIVE → good.'},
+  {topic:'adverb',type:'Adjective or adverb? Fill in.',mode:'fill',text:'She sings _____.\n(good or well?)',ans:'well',accept:['well'],hint:'Describe the verb "sings" with an ADVERB → well.'},
 
-  { topic:'adverb', type:'What type of adverb?',
-    text:'The cat is sleeping <em>inside</em>.',
-    opts:['manner','time','place','frequency'], ans:'place',
-    hint:'"Inside" tells us WHERE → adverb of place.' },
+  // PRESENT CONTINUOUS (fill)
+  {topic:'pc',type:'Present Continuous — write the correct form',mode:'fill',text:'I _____ to New York tomorrow morning. (fly)\nWrite: I\'m ___ing',ans:"i'm flying",accept:["i'm flying","im flying","i am flying"],hint:'arrangement = dohodnutý plán, rezervácia → I am flying → I\'m flying.'},
+  {topic:'pc',type:'Present Continuous — write the correct form',mode:'fill',text:'She _____ the dentist at 6 o\'clock. (see)\nWrite: She\'s ___ing',ans:"she's seeing",accept:["she's seeing","she is seeing","shes seeing"],hint:'Termín u lekára = arrangement → She is seeing → She\'s seeing.'},
+  {topic:'pc',type:'Present Continuous — write the correct form',mode:'fill',text:'We _____ married next week. (get)\nWrite: We\'re ___ing',ans:"we're getting",accept:["we're getting","we are getting","were getting"],hint:'arrangement = všetko dohodnuté → We are getting → We\'re getting.'},
+  {topic:'pc',type:'Present Continuous — write the correct form',mode:'fill',text:'They _____ to a concert tomorrow night. (go)\nWrite: They\'re ___ing',ans:"they're going",accept:["they're going","they are going","theyre going"],hint:'arrangement = lístky kúpené → They are going → They\'re going.'},
+  {topic:'pc',type:'Present Continuous — write the correct form',mode:'fill',text:'He _____ his grandparents this weekend. (visit)',ans:"he's visiting",accept:["he's visiting","he is visiting","hes visiting"],hint:'he → is → he is visiting → he\'s visiting.'},
+  {topic:'pc',type:'Present Continuous — write the correct form',mode:'fill',text:'My parents _____ a new car next week. (buy)',ans:"are buying",accept:["are buying","my parents are buying"],hint:'my parents = they → are + buying.'},
+  {topic:'pc',type:'Present Continuous — write the question',mode:'fill',text:'"_____ you _____ anyone for dinner on Friday?" (meet)\nWrite the full verb phrase:',ans:"are you meeting",accept:["are you meeting"],hint:'Question: Are + you + meeting?'},
 
-  { topic:'adverb', type:'What type of adverb?',
-    text:'She is <em>extremely</em> good at maths.',
-    opts:['manner','degree','frequency','time'], ans:'degree',
-    hint:'"Extremely" tells us HOW MUCH → adverb of degree.' },
+  // GOING TO — positive (fill)
+  {topic:'goingto',type:'Going to — write the correct form',mode:'fill',text:'I _____ meet my friends after class.\n(am/is/are + going to)',ans:"am going to",accept:["am going to","i am going to","i'm going to"],hint:'I → am → I am going to.'},
+  {topic:'goingto',type:'Going to — write the correct form',mode:'fill',text:'Bob and Cathy _____ see a movie tonight.\n(am/is/are + going to)',ans:"are going to",accept:["are going to"],hint:'Bob and Cathy = they → are going to.'},
+  {topic:'goingto',type:'Going to — write the correct form',mode:'fill',text:'My sister _____ look for a new school next year.\n(am/is/are + going to)',ans:"is going to",accept:["is going to","she is going to","she's going to"],hint:'My sister = she → is going to.'},
+  {topic:'goingto',type:'Going to — write the correct form',mode:'fill',text:'My classmates and I _____ have a test on Monday.\n(am/is/are + going to)',ans:"are going to",accept:["are going to"],hint:'"My classmates and I" = we → are going to.'},
 
-  { topic:'adverb', type:'What type of adverb?',
-    text:'He <em>never</em> eats vegetables.',
-    opts:['manner','time','place','frequency'], ans:'frequency',
-    hint:'"Never" tells us HOW OFTEN → adverb of frequency.' },
+  // GOING TO — negative (fill)
+  {topic:'goingto',type:'Going to — write NEGATIVE form',mode:'fill',text:'We\'re too busy. We _____ have lunch.\n(aren\'t/isn\'t going to)',ans:"aren't going to",accept:["aren't going to","are not going to","arent going to"],hint:'we → are not → aren\'t going to.'},
+  {topic:'goingto',type:'Going to — write NEGATIVE form',mode:'fill',text:'The weather is bad. We _____ go to the beach.\n(aren\'t/isn\'t going to)',ans:"aren't going to",accept:["aren't going to","are not going to","arent going to"],hint:'we → aren\'t going to.'},
+  {topic:'goingto',type:'Going to — write NEGATIVE form',mode:'fill',text:'Alex is sick. He _____ go to work today.\n(aren\'t/isn\'t going to)',ans:"isn't going to",accept:["isn't going to","is not going to","isnt going to"],hint:'he → is not → isn\'t going to.'},
 
-  { topic:'adverb', type:'What type of adverb?',
-    text:'The children played <em>outside</em> all day.',
-    opts:['manner','time','place','degree'], ans:'place',
-    hint:'"Outside" tells us WHERE → adverb of place.' },
+  // GOING TO — questions (fill2)
+  {topic:'goingto',type:'Going to — write QUESTION form',mode:'fill2',text:'"_____ your brother _____ travel next week?"',labels:['1st word (Is/Are/Am?)','2nd part'],ans:['is','going to'],accept:[['is'],['going to']],hint:'your brother = he → Is + he + going to?'},
+  {topic:'goingto',type:'Going to — write QUESTION form',mode:'fill2',text:'"Where _____ they _____ stay in Paris?"',labels:['1st word (is/are/am?)','2nd part'],ans:['are','going to'],accept:[['are'],['going to']],hint:'they → Are + they + going to?'},
+  {topic:'goingto',type:'Going to — write QUESTION form',mode:'fill2',text:'"What _____ you _____ buy for her birthday?"',labels:['1st word (is/are/am?)','2nd part'],ans:['are','going to'],accept:[['are'],['going to']],hint:'you → Are + you + going to?'},
 
-  { topic:'adverb', type:'What type of adverb?',
-    text:'He spoke <em>softly</em> so as not to wake the baby.',
-    opts:['manner','frequency','degree','time'], ans:'manner',
-    hint:'"Softly" tells us HOW he spoke → adverb of manner.' },
-
-  // ── ADVERBS: Form adjective → adverb ──
-  { topic:'adverb', type:'Make the adverb',
-    text:'What is the adverb form of <em>happy</em>?',
-    opts:['happyly','happly','happily','happy'], ans:'happily',
-    hint:'angry → angrily · happy → happily (y→i+ly)' },
-
-  { topic:'adverb', type:'Make the adverb',
-    text:'What is the adverb form of <em>quick</em>?',
-    opts:['quickily','quickly','quicky','quicklier'], ans:'quickly',
-    hint:'Most adjectives: just add -ly → quickly.' },
-
-  { topic:'adverb', type:'Make the adverb',
-    text:'What is the adverb form of <em>angry</em>?',
-    opts:['angrily','angryly','angerly','angry'], ans:'angrily',
-    hint:'y → i + ly → angrily.' },
-
-  { topic:'adverb', type:'Make the adverb',
-    text:'What is the adverb form of <em>good</em>?',
-    opts:['goodly','goodily','well','goody'], ans:'well',
-    hint:'"Good" is irregular → the adverb is "well".' },
-
-  { topic:'adverb', type:'Make the adverb',
-    text:'What is the adverb form of <em>fast</em>?',
-    opts:['fastly','faster','fastily','fast'], ans:'fast',
-    hint:'"Fast" is irregular → the adverb is also "fast" (no -ly).' },
-
-  { topic:'adverb', type:'Make the adverb',
-    text:'What is the adverb form of <em>loud</em>?',
-    opts:['loudily','loudly','loudy','loudier'], ans:'loudly',
-    hint:'loud + ly = loudly.' },
-
-  { topic:'adverb', type:'Make the adverb',
-    text:'What is the adverb form of <em>hungry</em>?',
-    opts:['hungryly','hungrily','hungry','hungerily'], ans:'hungrily',
-    hint:'hungry → y→i+ly → hungrily.' },
-
-  // ── ADVERBS: Fill in ──
-  { topic:'adverb', type:'Choose the correct word',
-    text:'She danced _____ at the school show. (beautiful)',
-    opts:['beautiful','beautifully','beautifuly','beauty'], ans:'beautifully',
-    hint:'We need an adverb to describe HOW she danced → beautifully.' },
-
-  { topic:'adverb', type:'Choose the correct word',
-    text:'He is a _____ singer. (good / well)',
-    opts:['well','goodly','good','gooder'], ans:'good',
-    hint:'"Singer" is a noun — we need an ADJECTIVE to describe it → good.' },
-
-  { topic:'adverb', type:'Choose the correct word',
-    text:'She sings _____. (good / well)',
-    opts:['good','goodly','gooder','well'], ans:'well',
-    hint:'We need an adverb to describe HOW she sings → well.' },
-
-  // ── ADVERBS: Adj vs Adv ──
-  { topic:'adverb', type:'Adjective or adverb?',
-    text:'The <em>small</em> kid chewed quickly on the crunchy chips.\nWhat word class is "small"?',
-    opts:['adverb','adjective','verb','noun'], ans:'adjective',
-    hint:'"Small" describes the noun "kid" → adjective.' },
-
-  { topic:'adverb', type:'Adjective or adverb?',
-    text:'The small kid chewed <em>quickly</em> on the crunchy chips.\nWhat word class is "quickly"?',
-    opts:['adjective','noun','adverb','verb'], ans:'adverb',
-    hint:'"Quickly" describes HOW he chewed → adverb.' },
-
-  // ── PRESENT CONTINUOUS: plans/arrangements ──
-  { topic:'pc', type:'Present Continuous — plans',
-    text:'I _____ to New York tomorrow morning. (fly)',
-    opts:["I'm flying","I fly","I going to fly","I will flying"], ans:"I'm flying",
-    hint:'Arranged future plan (arrangement = dohodnutý plán, niečo čo už je rezervované) → Present Continuous: I\'m flying.' },
-
-  { topic:'pc', type:'Present Continuous — plans',
-    text:'She _____ the dentist at 6 o\'clock. (see)',
-    opts:["She's seeing","She see","She going to see","She will see"], ans:"She's seeing",
-    hint:'Appointment already made (arrangement = dohodnutý plán, termín u lekára) → she\'s seeing (is + seeing).' },
-
-  { topic:'pc', type:'Present Continuous — plans',
-    text:'We _____ married next week. (get)',
-    opts:["We're getting","We getting","We will get","We go to get"], ans:"We're getting",
-    hint:'Arrangement (= dohodnutý plán, všetko je zariadené) → we\'re getting (are + getting).' },
-
-  { topic:'pc', type:'Present Continuous — plans',
-    text:'They _____ to a concert tomorrow night. (go)',
-    opts:["They're going","They going","They go","They will going"], ans:"They're going",
-    hint:'Future arrangement (arrangement = dohodnutý plán, niečo čo už je rezervované) → they\'re going (are + going).' },
-
-  { topic:'pc', type:'Which sentence shows a FIXED ARRANGEMENT?',
-    text:'Which sentence shows a FIXED ARRANGEMENT (tickets/booking already made)?',
-    opts:[
-      "I'm meeting Tom for coffee tomorrow at 10.",
-      "I might meet Tom tomorrow.",
-      "I meet Tom every Monday.",
-      "I met Tom yesterday."
-    ], ans:"I'm meeting Tom for coffee tomorrow at 10.",
-    hint:'Present Continuous = plan with arrangements already made (arrangement = niečo čo už je dohodnuté, rezervované).' },
-
-  { topic:'pc', type:'Present Continuous — plans',
-    text:'Complete: "He _____ his grandparents this weekend." (visit)',
-    opts:["is visiting","visiting","visit","visits tomorrow"], ans:"is visiting",
-    hint:'he + is + visiting (arrangement = dohodnutá návšteva, plán je hotový) → is visiting.' },
-
-  { topic:'pc', type:'Present Continuous — plans',
-    text:'My parents _____ a new car next week. (buy)\nChoose the correct Present Continuous form:',
-    opts:["are buying","is buying","buying","buy"], ans:"are buying",
-    hint:'my parents = they → are + buying. (arrangement = plán je dohodnutý, idú kúpiť auto)' },
-
-  { topic:'pc', type:'Present Continuous — plans',
-    text:'_____ you _____ anyone for dinner on Friday? (meet)',
-    opts:["Are / meeting","Is / meeting","Do / meet","Will / meeting"], ans:"Are / meeting",
-    hint:'Question form: Are + you + meeting? (arrangement = dohodnuté stretnutie)' },
-
-  // ── GOING TO: Positive ──
-  { topic:'goingto', type:'Going to — complete the sentence',
-    text:'I _____ meet my friends after class.',
-    opts:["am going to","is going to","are going to","going to"], ans:"am going to",
-    hint:'I + am going to.' },
-
-  { topic:'goingto', type:'Going to — complete the sentence',
-    text:'Bob and Cathy _____ see a movie tonight.',
-    opts:["are going to","is going to","am going to","be going to"], ans:"are going to",
-    hint:'Bob and Cathy = they → are going to.' },
-
-  { topic:'goingto', type:'Going to — complete the sentence',
-    text:'My sister _____ look for a new school next year.',
-    opts:["is going to","are going to","am going to","going"], ans:"is going to",
-    hint:'My sister = she → is going to.' },
-
-  // ── GOING TO: Negative ──
-  { topic:'goingto', type:'Going to — make it NEGATIVE',
-    text:'We\'re too busy. We _____ have lunch today.',
-    opts:["aren't going to","isn't going to","not going to","don't going to"], ans:"aren't going to",
-    hint:'we → are not → aren\'t going to.' },
-
-  { topic:'goingto', type:'Going to — make it NEGATIVE',
-    text:'The weather is bad. We _____ go to the beach.',
-    opts:["aren't going to","isn't going to","am not going to","not going"], ans:"aren't going to",
-    hint:'we → aren\'t going to.' },
-
-  { topic:'goingto', type:'Going to — make it NEGATIVE',
-    text:'Alex is sick. He _____ go to work today.',
-    opts:["isn't going to","aren't going to","am not going to","not going to"], ans:"isn't going to",
-    hint:'he/she/it → isn\'t going to.' },
-
-  // ── GOING TO: Questions ──
-  { topic:'goingto', type:'Going to — QUESTION form',
-    text:'_____ your brother _____ travel next week?',
-    opts:["Is / going to","Are / going to","Am / going to","Does / going to"], ans:"Is / going to",
-    hint:'your brother = he → Is + he + going to?' },
-
-  { topic:'goingto', type:'Going to — QUESTION form',
-    text:'Where _____ they _____ stay in Paris?',
-    opts:["are / going to","is / going to","am / going to","do / going to"], ans:"are / going to",
-    hint:'they → Are + they + going to?' },
-
-  { topic:'goingto', type:'Going to — QUESTION form',
-    text:'What _____ you _____ buy for her birthday?',
-    opts:["are / going to","is / going to","am / going to","will / going to"], ans:"are / going to",
-    hint:'you → Are + you + going to?' },
-
-  // ── GOING TO: Prediction vs Intention ──
-  { topic:'goingto', type:'Prediction OR intention/plan?',
-    text:'Look at those dark clouds! It\'s going to rain soon.',
-    opts:['prediction (based on evidence)','intention / plan','arrangement','habit'], ans:'prediction (based on evidence)',
-    hint:'We can see the clouds right now → prediction based on evidence.' },
-
-  { topic:'goingto', type:'Prediction OR intention/plan?',
-    text:'"I\'m going to study harder next term," said Sam.',
-    opts:['intention / plan','prediction (based on evidence)','arrangement','habit'], ans:'intention / plan',
-    hint:'Sam has decided to do this → intention/plan.' },
-
-  { topic:'goingto', type:'Prediction OR intention/plan?',
-    text:'"Stop the car! We\'re going to have an accident!"',
-    opts:['prediction (based on evidence)','intention / plan','arrangement','routine'], ans:'prediction (based on evidence)',
-    hint:'We can see the danger now → prediction based on evidence.' },
-
+  // GOING TO — prediction vs intention (mc)
+  {topic:'goingto',type:'Prediction OR plan/intention?',mode:'mc',text:'Look at those dark clouds! It\'s going to rain soon.',opts:['prediction (based on evidence)','plan / intention'],ans:'prediction (based on evidence)',hint:'Vidíme mraky = dôkaz teraz → prediction based on evidence.'},
+  {topic:'goingto',type:'Prediction OR plan/intention?',mode:'mc',text:'"I\'m going to study harder next term," said Sam.',opts:['prediction (based on evidence)','plan / intention'],ans:'plan / intention',hint:'Sam sa rozhodol → plan / intention.'},
+  {topic:'goingto',type:'Prediction OR plan/intention?',mode:'mc',text:'"Stop the car! We\'re going to have an accident!"',opts:['prediction (based on evidence)','plan / intention'],ans:'prediction (based on evidence)',hint:'Vidíme nebezpečenstvo teraz → prediction based on evidence.'},
 ];
 
-// ═══════════════════════════════════════════════
-// STATE
-// ═══════════════════════════════════════════════
-let queue = [];
-let current = 0;
-let wrongIndices = [];
-let correct = 0;
-let streak = 0;
-let streakTimer = null;
-let isRetry = false;
-let answered = false;
+let queue=[],current=0,wrongIndices=[],correct=0,streak=0,streakTimer=null,isRetry=false,answered=false;
 
-function shuffle(arr) {
-  const a = [...arr];
-  for (let i = a.length-1; i>0; i--) {
-    const j = Math.floor(Math.random()*(i+1));
-    [a[i],a[j]] = [a[j],a[i]];
-  }
-  return a;
+function shuffle(arr){const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+
+function startQuiz(retry){
+  isRetry=retry;
+  queue=retry?wrongIndices.map(i=>ALL_QUESTIONS[i]):shuffle(ALL_QUESTIONS);
+  wrongIndices=[];current=0;correct=0;streak=0;
+  showScreen('scQuiz');renderQuestion();
+}
+function startRetry(){startQuiz(true);}
+
+function renderQuestion(){
+  answered=false;
+  const q=queue[current],total=queue.length;
+  const tagEl=document.getElementById('qTag');
+  tagEl.textContent=q.topic==='adverb'?'Adverbs':q.topic==='pc'?'Present Cont.':'Going To';
+  tagEl.className='tag '+(q.topic==='adverb'?'tag-adverb':q.topic==='pc'?'tag-pc':'tag-goingto');
+  document.getElementById('progressFill').style.width=Math.round((current/total)*100)+'%';
+  document.getElementById('progressText').textContent=current+' / '+total;
+  document.getElementById('qType').textContent=q.type;
+  document.getElementById('qText').innerHTML=q.text.replace(/\n/g,'<br>');
+  document.getElementById('feedback').className='feedback';
+  document.getElementById('feedback').innerHTML='';
+  document.getElementById('nextBtn').className='next-btn';
+  const container=document.getElementById('qInput');
+  container.innerHTML='';
+  if(q.mode==='mc') renderMC(q,container);
+  else if(q.mode==='fill') renderFill(q,container);
+  else if(q.mode==='fill2') renderFillN(q,container,2);
 }
 
-function startQuiz(retry) {
-  isRetry = retry;
-  queue = retry ? wrongIndices.map(i => ALL_QUESTIONS[i]) : shuffle(ALL_QUESTIONS);
-  wrongIndices = [];
-  current = 0;
-  correct = 0;
-  streak = 0;
-  showScreen('scQuiz');
-  renderQuestion();
-}
-
-function startRetry() { startQuiz(true); }
-
-function renderQuestion() {
-  answered = false;
-  const q = queue[current];
-  const total = queue.length;
-
-  // tag
-  const tagEl = document.getElementById('qTag');
-  tagEl.textContent = q.topic === 'adverb' ? 'Adverbs' : q.topic === 'pc' ? 'Present Cont.' : 'Going To';
-  tagEl.className = 'tag ' + (q.topic === 'adverb' ? 'tag-adverb' : q.topic === 'pc' ? 'tag-pc' : 'tag-goingto');
-
-  // progress
-  const pct = Math.round((current/total)*100);
-  document.getElementById('progressFill').style.width = pct + '%';
-  document.getElementById('progressText').textContent = current + ' / ' + total;
-
-  document.getElementById('qType').textContent = q.type;
-  document.getElementById('qText').innerHTML = q.text.replace(/\n/g,'<br>');
-
-  // options (shuffled)
-  const opts = shuffle(q.opts);
-  const container = document.getElementById('options');
-  container.innerHTML = '';
-  opts.forEach(opt => {
-    const btn = document.createElement('button');
-    btn.className = 'opt-btn';
-    btn.textContent = opt;
-    btn.onclick = () => selectAnswer(opt, q);
-    container.appendChild(btn);
+function renderMC(q,container){
+  const wrap=document.createElement('div');wrap.className='options';
+  shuffle(q.opts).forEach(opt=>{
+    const btn=document.createElement('button');btn.className='opt-btn';btn.textContent=opt;
+    btn.onclick=()=>{
+      if(answered)return;answered=true;
+      const ok=opt===q.ans;
+      wrap.querySelectorAll('.opt-btn').forEach(b=>{b.disabled=true;if(b.textContent===q.ans)b.classList.add(ok?'correct':'reveal');if(b.textContent===opt&&!ok)b.classList.add('wrong');});
+      showFeedback(ok,q);
+    };
+    wrap.appendChild(btn);
   });
-
-  document.getElementById('feedback').className = 'feedback';
-  document.getElementById('feedback').textContent = '';
-  document.getElementById('nextBtn').className = 'next-btn';
+  container.appendChild(wrap);
 }
 
-function selectAnswer(chosen, q) {
-  if (answered) return;
-  answered = true;
+function renderFill(q,container){
+  const wrap=document.createElement('div');wrap.className='fill-wrap';
+  const inp=document.createElement('input');inp.type='text';inp.className='fill-input';inp.placeholder='Write your answer...';inp.autocomplete='off';inp.autocorrect='off';inp.autocapitalize='off';
+  wrap.appendChild(inp);
+  const btn=document.createElement('button');btn.className='check-btn';btn.textContent='Check ✓';
+  btn.onclick=()=>{
+    if(answered)return;answered=true;btn.disabled=true;inp.disabled=true;
+    const val=inp.value.trim().toLowerCase();
+    const accepted=q.accept?q.accept.map(a=>a.toLowerCase()):[q.ans.toLowerCase()];
+    const ok=accepted.includes(val);
+    inp.classList.add(ok?'correct':'wrong');
+    showFeedback(ok,q);
+  };
+  inp.addEventListener('keydown',e=>{if(e.key==='Enter')btn.click();});
+  wrap.appendChild(btn);
+  container.appendChild(wrap);
+  setTimeout(()=>inp.focus(),100);
+}
 
-  const isCorrect = chosen === q.ans;
-  const buttons = document.querySelectorAll('.opt-btn');
-  buttons.forEach(btn => {
-    btn.disabled = true;
-    if (btn.textContent === q.ans) btn.classList.add(isCorrect ? 'correct' : 'reveal');
-    if (btn.textContent === chosen && !isCorrect) btn.classList.add('wrong');
-  });
+function renderFillN(q,container,n){
+  const wrap=document.createElement('div');wrap.className='fill-wrap';
+  const inputs=[];
+  for(let i=0;i<n;i++){
+    const row=document.createElement('div');row.className='fill-row';
+    if(q.labels&&q.labels[i]){const lbl=document.createElement('div');lbl.className='fill-label';lbl.textContent=q.labels[i];row.appendChild(lbl);}
+    const inp=document.createElement('input');inp.type='text';inp.className='fill-input';inp.placeholder='Write here...';inp.autocomplete='off';inp.autocorrect='off';inp.autocapitalize='off';
+    row.appendChild(inp);wrap.appendChild(row);inputs.push(inp);
+  }
+  const btn=document.createElement('button');btn.className='check-btn';btn.textContent='Check ✓';
+  btn.onclick=()=>{
+    if(answered)return;answered=true;btn.disabled=true;
+    let allOk=true;
+    inputs.forEach((inp,i)=>{
+      inp.disabled=true;
+      const val=inp.value.trim().toLowerCase();
+      const accepted=(q.accept&&q.accept[i])?q.accept[i].map(a=>a.toLowerCase()):[q.ans[i].toLowerCase()];
+      const ok=accepted.includes(val);
+      inp.classList.add(ok?'correct':'wrong');
+      if(!ok)allOk=false;
+    });
+    showFeedback(allOk,q);
+  };
+  inputs[inputs.length-1].addEventListener('keydown',e=>{if(e.key==='Enter')btn.click();});
+  wrap.appendChild(btn);container.appendChild(wrap);
+  setTimeout(()=>inputs[0].focus(),100);
+}
 
-  const fb = document.getElementById('feedback');
-  if (isCorrect) {
-    correct++;
-    streak++;
-    fb.className = 'feedback ok show';
-    const msgs = ['Správne! ⭐','Výborne! 🎉','Presne tak! ✨','Skvelé! 🌟','Bravo! 🚀'];
-    fb.textContent = msgs[Math.floor(Math.random()*msgs.length)];
-    if (streak >= 3) showStreak();
+function showFeedback(ok,q){
+  const fb=document.getElementById('feedback');
+  if(ok){
+    correct++;streak++;
+    fb.className='feedback ok show';
+    const msgs=['Správne! ⭐','Výborne! 🎉','Presne tak! ✨','Skvelé! 🌟','Bravo! 🚀','Super! 💪'];
+    fb.textContent=msgs[Math.floor(Math.random()*msgs.length)];
+    if(streak>=3)showStreak();
   } else {
-    // find original index
-    const origIdx = ALL_QUESTIONS.indexOf(q);
-    if (origIdx !== -1 && !wrongIndices.includes(origIdx)) wrongIndices.push(origIdx);
-    streak = 0;
-    fb.className = 'feedback bad show';
-    fb.textContent = '✗ Správna odpoveď: ' + q.ans + ' — ' + q.hint;
+    const origIdx=ALL_QUESTIONS.indexOf(q);
+    if(origIdx!==-1&&!wrongIndices.includes(origIdx))wrongIndices.push(origIdx);
+    streak=0;
+    fb.className='feedback bad show';
+    const ans=Array.isArray(q.ans)?q.ans.join(' + '):q.ans;
+    fb.innerHTML='✗ Správna odpoveď: <strong>'+ans+'</strong><br><span style="font-weight:600;opacity:.85">'+q.hint+'</span>';
   }
-
-  document.getElementById('nextBtn').className = 'next-btn show';
+  document.getElementById('nextBtn').className='next-btn show';
 }
 
-function nextQuestion() {
-  current++;
-  if (current >= queue.length) {
-    finishQuiz();
-  } else {
-    renderQuestion();
+function nextQuestion(){current++;if(current>=queue.length)finishQuiz();else renderQuestion();}
+
+function finishQuiz(){
+  const total=queue.length,wrong=total-correct,pct=Math.round((correct/total)*100);
+  if(wrong===0){
+    document.getElementById('perfectMsg').textContent=isRetry?'Všetky opakované otázky správne! Teraz to máš naozaj v hlave. Agátka WIN! 🎉':'Všetky otázky správne na prvý pokus! Si hviezda! 🌟';
+    showScreen('scPerfect');launchConfetti();return;
   }
-}
-
-function finishQuiz() {
-  const total = queue.length;
-  const wrong = total - correct;
-  const pct = Math.round((correct/total)*100);
-
-  if (wrong === 0) {
-    // perfect
-    document.getElementById('perfectMsg').textContent = isRetry
-      ? 'Všetky opakované otázky správne! Teraz to máš naozaj v hlave. Agátka WIN! 🎉'
-      : 'Všetky otázky správne na prvý pokus! Si hviezda! 🌟';
-    showScreen('scPerfect');
-    launchConfetti();
-    return;
-  }
-
-  let grade, emoji, msg;
-  if      (pct === 100) { grade='A+'; emoji='🏆'; msg='Perfektné!'; }
-  else if (pct >= 90)   { grade='A';  emoji='🌟'; msg='Skvelý výsledok! Takmer perfektné.'; }
-  else if (pct >= 75)   { grade='B';  emoji='😊'; msg='Dobrý výkon! Niektoré veci si ešte zopakovať.'; }
-  else if (pct >= 60)   { grade='C';  emoji='💪'; msg='Nie je to zlé — ale vieš to lepšie. Zopakuj chyby!'; }
-  else if (pct >= 45)   { grade='D';  emoji='📚'; msg='Ešte je čo zlepšovať. Retry pomôže!'; }
-  else                  { grade='F';  emoji='🔥'; msg='Nevzdávaj sa! Každá chyba ťa niečo naučí.'; }
-
-  document.getElementById('rEmoji').textContent = emoji;
-  document.getElementById('rGrade').textContent = grade;
-  document.getElementById('rPct').textContent = pct + '% (' + correct + '/' + total + ')';
-  document.getElementById('rCorrect').textContent = '✓ ' + correct + ' správne';
-  document.getElementById('rWrong').textContent = '✗ ' + wrong + ' chýb';
-  document.getElementById('rMsg').textContent = msg;
-  document.getElementById('retryBtn').style.display = wrong > 0 ? 'block' : 'none';
-
+  let grade,emoji,msg;
+  if(pct>=90){grade='A';emoji='🌟';msg='Skvelý výsledok! Skoro perfektné.';}
+  else if(pct>=75){grade='B';emoji='😊';msg='Dobrý výkon! Niektoré veci si ešte zopakovať.';}
+  else if(pct>=60){grade='C';emoji='💪';msg='Nie je to zlé — ale vieš to lepšie. Zopakuj chyby!';}
+  else if(pct>=45){grade='D';emoji='📚';msg='Ešte je čo zlepšovať. Retry pomôže!';}
+  else{grade='F';emoji='🔥';msg='Nevzdávaj sa! Každá chyba ťa niečo naučí.';}
+  document.getElementById('rEmoji').textContent=emoji;
+  document.getElementById('rGrade').textContent=grade;
+  document.getElementById('rPct').textContent=pct+'% ('+correct+'/'+total+')';
+  document.getElementById('rCorrect').textContent='✓ '+correct+' správne';
+  document.getElementById('rWrong').textContent='✗ '+wrong+' chýb';
+  document.getElementById('rMsg').textContent=msg;
+  document.getElementById('retryBtn').style.display=wrong>0?'inline-block':'none';
   showScreen('scResult');
 }
 
-function showScreen(id) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0);}
+
+function showStreak(){
+  const el=document.getElementById('streakBadge');
+  document.getElementById('streakCount').textContent=streak;
+  el.classList.add('show');clearTimeout(streakTimer);
+  streakTimer=setTimeout(()=>el.classList.remove('show'),2400);
 }
 
-function showStreak() {
-  const el = document.getElementById('streakBadge');
-  document.getElementById('streakCount').textContent = streak;
-  el.classList.add('show');
-  clearTimeout(streakTimer);
-  streakTimer = setTimeout(() => el.classList.remove('show'), 2400);
-}
-
-function launchConfetti() {
-  const colors = ['#a855f7','#f472b6','#34d399','#fbbf24','#60a5fa'];
-  for (let i = 0; i < 60; i++) {
-    setTimeout(() => {
-      const el = document.createElement('div');
-      el.className = 'confetti-piece';
-      el.style.cssText = `
-        left:${Math.random()*100}vw;
-        background:${colors[Math.floor(Math.random()*colors.length)]};
-        width:${6+Math.random()*8}px;
-        height:${6+Math.random()*8}px;
-        animation-duration:${1.5+Math.random()*2}s;
-        border-radius:${Math.random()>0.5?'50%':'2px'};
-      `;
-      document.body.appendChild(el);
-      el.addEventListener('animationend', () => el.remove());
-    }, i * 40);
-  }
+function launchConfetti(){
+  const colors=['#a855f7','#f472b6','#34d399','#fbbf24','#60a5fa'];
+  for(let i=0;i<60;i++){setTimeout(()=>{const el=document.createElement('div');el.className='confetti-piece';el.style.cssText=`left:${Math.random()*100}vw;background:${colors[Math.floor(Math.random()*colors.length)]};width:${6+Math.random()*8}px;height:${6+Math.random()*8}px;animation-duration:${1.5+Math.random()*2}s;border-radius:${Math.random()>.5?'50%':'2px'};`;document.body.appendChild(el);el.addEventListener('animationend',()=>el.remove());},i*40);}
 }
 </script>
 </body>
