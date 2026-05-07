@@ -280,6 +280,9 @@ function renderMC(q,container){
   container.appendChild(wrap);
 }
 
+// normalize: lowercase + strip all apostrophe variants + trim
+function norm(s){return s.trim().toLowerCase().replace(/[\u2019\u2018\u0060\u00B4']/g,"'");}
+
 function renderFill(q,container){
   const wrap=document.createElement('div');wrap.className='fill-wrap';
   const inp=document.createElement('input');inp.type='text';inp.className='fill-input';inp.placeholder='Write your answer...';inp.autocomplete='off';inp.autocorrect='off';inp.autocapitalize='off';
@@ -287,8 +290,8 @@ function renderFill(q,container){
   const btn=document.createElement('button');btn.className='check-btn';btn.textContent='Check ✓';
   btn.onclick=()=>{
     if(answered)return;answered=true;btn.disabled=true;inp.disabled=true;
-    const val=inp.value.trim().toLowerCase();
-    const accepted=q.accept?q.accept.map(a=>a.toLowerCase()):[q.ans.toLowerCase()];
+    const val=norm(inp.value);
+    const accepted=q.accept?q.accept.map(a=>norm(a)):[norm(q.ans)];
     const ok=accepted.includes(val);
     inp.classList.add(ok?'correct':'wrong');
     showFeedback(ok,q);
@@ -314,8 +317,8 @@ function renderFillN(q,container,n){
     let allOk=true;
     inputs.forEach((inp,i)=>{
       inp.disabled=true;
-      const val=inp.value.trim().toLowerCase();
-      const accepted=(q.accept&&q.accept[i])?q.accept[i].map(a=>a.toLowerCase()):[q.ans[i].toLowerCase()];
+      const val=norm(inp.value);
+      const accepted=(q.accept&&q.accept[i])?q.accept[i].map(a=>norm(a)):[norm(q.ans[i])];
       const ok=accepted.includes(val);
       inp.classList.add(ok?'correct':'wrong');
       if(!ok)allOk=false;
